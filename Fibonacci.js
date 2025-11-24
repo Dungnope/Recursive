@@ -1,41 +1,32 @@
-const fibs = (n) => {
+const fibs = (x) => {
+    if(x == 1) return [0];
+    if(x == 2) return [0, 1];
+
     let res = [];
-
-    if(n == 1){
-        res.push(n-1);
-        return res;
-    }
-    else if(n == 2){
-        res.push(n - 2, n - 1);
-        return res;
-    }
-
-    let first  = 0;
-    let second  = 1;
-    res.push(first, second);
-
-    for(let i = 0; i < n - 2; i++){
-        let newnumber  = first + second;
-        res.push(newnumber);
-        first = second;
-        second = newnumber;
+    res.push(0, 1);
+    for(let i = 0; i < x-2; i++){
+        let prev = res[i];
+        let next = res[i+1];
+        res.push(prev + next);
     }
 
     return res;
 }
-    
-const  fibsRec = (n) => {
-    if(n === 1) return [0];
-    if(n === 2) return [0, 1];
 
-    const prev = fibsRec(n-1);
 
-    const next = prev[prev.length-1] + prev[prev.length-2];
+const fibsRec = (x) => {
+    if(x == 1) return [0];
+    if(x == 2) return [0, 1];
 
-    prev.push(next);
-    
-    return prev;
+    let bottom = fibsRec(x - 1);
+
+    let upper_bottom = bottom[bottom.length - 1] + bottom[bottom.length - 2];
+
+    bottom.push(upper_bottom);
+
+    return bottom;
+
 }
+console.log(fibs(4));
 
-console.log(fibsRec(5));
-
+console.log(fibsRec(4));
